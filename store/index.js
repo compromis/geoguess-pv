@@ -1,13 +1,20 @@
+import game from '../content/game.js'
+
 export const state = () => ({
-  step: 0,
+  game,
+  round: 1,
   finished: false,
-  points: 0,
+  score: 0,
   history: []
 })
 
 export const mutations = {
-  setStep (state, step) {
-    state.step = step
+  setRound (state, round) {
+    if (round > state.game.length) {
+      state.finished = true
+    } else {
+      state.round = round
+    }
   },
 
   setFinished (state, finished) {
@@ -15,7 +22,7 @@ export const mutations = {
   },
 
   addPoints (state, points) {
-    state.points += points
+    state.score += points
   },
 
   recordResult (state, result) {

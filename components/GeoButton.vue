@@ -1,5 +1,5 @@
 <template>
-  <button :class="{'yellow' : variant === 'yellow', 'disabled' : variant === 'disabled'}">
+  <button :class="['geo-button', variant]" @click="$emit('click', $event)">
     <slot />
   </button>
 </template>
@@ -16,8 +16,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../assets/scss/variables.scss';
-
 button {
   outline: none;
   background: $green;
@@ -28,7 +26,7 @@ button {
 
   &:hover {
     transform: rotate(-6deg) scale(1.05);
-    box-shadow: 5px 5px 20px 3px rgba($black, .25);
+    box-shadow: $box-shadow;
   }
 
   &:active {

@@ -1,16 +1,28 @@
 export default [
   {
-    name: 'Platja del Saler',
+    id: 1,
+    question: 'Quina platja...?',
+    name: 'És la Platja del Saler',
     position: {
-      lat: 0,
-      lng: 0
+      lat: 39.4713682,
+      lng: -0.3826744
+    },
+    pov: {
+      heading: 165,
+      pitch: 0
     }
   },
   {
-    name: 'Punt 2',
+    id: 2,
+    question: 'Quina platja 2...?',
+    name: 'És la Platja del XXX',
     position: {
-      lat: 0,
-      lng: 0
+      lat: 39.6548452,
+      lng: -0.2270591
+    },
+    pov: {
+      heading: 165,
+      pitch: 0
     }
   }
 ]
