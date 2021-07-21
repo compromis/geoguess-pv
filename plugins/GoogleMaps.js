@@ -1,7 +1,7 @@
 import Vue from 'vue'
-import * as VueGoogleMaps from 'vue2-google-maps'
+import * as GmapVue from 'gmap-vue'
 
-Vue.use(VueGoogleMaps, {
+Vue.use(GmapVue, {
   load: {
     key: process.env.NUXT_ENV_GOOGLE_MAPS_KEY,
     libraries: 'places'

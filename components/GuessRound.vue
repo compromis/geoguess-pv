@@ -12,7 +12,7 @@
       </div>
       <div class="score">
         <span class="score-points">{{ score }}</span>
-        <span class="score-label">Punts</span>
+        <span class="score-label">de 2.500</span>
       </div>
     </div>
     <div class="location">
@@ -25,7 +25,10 @@
           :options="{ addressControl: false, showRoadLabels: false }"
         />
       </div>
-      <div class="location-map">
+      <div :class="['location-map', { 'location-map-show': showMap }]">
+        <button class="close-map-button" aria-label="Tanca mapa" @click="showMap = false">
+          &times;
+        </button>
         <gmap-map
           ref="map"
           class="location-map-canvas"
@@ -47,23 +50,30 @@
           <gmap-marker
             v-for="(marker, i) in markers"
             :key="i"
-            :position="marker"
+            :position="marker.position"
             :draggable="!guessed"
+            :icon="marker.icon"
             @dragend="updateLat"
           />
           <gmap-polyline
             v-if="path.length > 0"
             :path="path"
           />
-          </gmap-polyline>
         </gmap-map>
+        <geo-button v-if="!guessed && markers.length" class="guess-button map-button button-hide" @click="guess">
+          Crec que és ací ->
+        </geo-button>
+        <geo-button v-else-if="!guessed" variant="disabled" class="guess-button map-button button-hide">
+          Tria un punt al mapa
+        </geo-button>
       </div>
     </div>
     <div class="button-container">
-      <geo-button v-if="!guessed" class="guess-button" @click="guess">
+      <geo-button v-if="!guessed" :class="['guess-button', { 'button-hide': !showMap }]" @click="guess">
         Es ací ->
       </geo-button>
-      <geo-button v-if="!guessed" :class="{ showMap : 'location-map-show'}" @click="showMap = !showMap">
+      <geo-button v-if="!guessed" :class="['show-map-button', { 'button-hide': showMap }]" @click="showMap = !showMap">
+        <map-icon />
         Endevina-ho
       </geo-button>
     </div>
@@ -72,8 +82,12 @@
         <span class="result-score-points">+ {{ roundScore }}</span>
         <span class="result-score-label">Punts</span>
       </div>
-      <div class="result-distance">
+      <geo-bar :score="roundScore" />
+      <div v-if="distance > 1000" class="result-distance">
         Has fallat per {{ distance | inKm }}
+      </div>
+      <div v-else class="result-distance">
+        Molt bé! T'has apropat {{ distance | inKm }}
       </div>
       <p class="result-text">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -81,15 +95,30 @@
         Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
         Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
       </p>
-      <geo-button @click="nextRound">
-        {{ round.id === game.length ? 'Finalitzar' : 'Següent ronda' }}
-      </geo-button>
+      <div class="next-button">
+        <geo-button v-if="round.id === game.length" to="results">
+          Mostra resultats
+        </geo-button>
+        <geo-button v-else @click="nextRound">
+          Següent ronda ->
+        </geo-button>
+      </div>
     </div>
-  </div>
   </div>
 </template>
 
 <script>
+import { calculateDistance, calculateScore } from '../utils/math'
+import questionPin from '../assets/images/question-pin.png'
+import flagPin from '../assets/images/flag-pin.png'
+
+const userIcon = {
+  url: questionPin
+}
+const flagIcon = {
+  url: flagPin
+}
+
 export default {
   filters: {
     inKm (value) {
@@ -135,20 +164,21 @@ export default {
 
   methods: {
     setMarker (event) {
-      this.markers = [{ lat: event.latLng.lat(), lng: event.latLng.lng() }]
+      if (this.guessed) { return }
+      this.markers = [{ position: { lat: event.latLng.lat(), lng: event.latLng.lng() }, icon: userIcon }]
       this.updateLat(event)
     },
 
     guess () {
       const { lat: lat1, lng: lon1 } = this.currentGuess
       const { lat: lat2, lng: lon2 } = this.round.position
-      this.markers.push(this.round.position)
+      this.markers.push({ position: this.round.position, icon: flagIcon })
       this.path = [
         { lat: lat1, lng: lon1 },
         { lat: lat2, lng: lon2 }
       ]
-      this.distance = this.calculateDistance({ lat1, lat2, lon1, lon2 })
-      this.roundScore = this.calculateScore(this.distance)
+      this.distance = calculateDistance({ lat1, lat2, lon1, lon2 })
+      this.roundScore = calculateScore(this.distance)
       this.guessed = true
       this.$store.commit('addPoints', this.roundScore)
       this.$store.commit('recordResult', {
@@ -159,37 +189,12 @@ export default {
     },
 
     nextRound () {
-      this.$store.commit('setRound', this.round.id + 1)
+      this.$store.commit('nextRound')
     },
 
     updateLat (event) {
       this.currentGuess.lat = event.latLng.lat()
       this.currentGuess.lng = event.latLng.lng()
-    },
-
-    calculateDistance ({ lat1, lat2, lon1, lon2 }) {
-      // Source: https://www.movable-type.co.uk/scripts/latlong.html
-      const R = 6371e3 // metres
-      const φ1 = lat1 * Math.PI / 180 // φ, λ in radians
-      const φ2 = lat2 * Math.PI / 180
-      const Δφ = (lat2 - lat1) * Math.PI / 180
-      const Δλ = (lon2 - lon1) * Math.PI / 180
-
-      const a = Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
-                Math.cos(φ1) * Math.cos(φ2) *
-                Math.sin(Δλ / 2) * Math.sin(Δλ / 2)
-      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
-      const d = R * c
-
-      return Math.round(d)
-    },
-
-    calculateScore (distance) {
-      const maxScore = 500
-      const minScore = 0
-      const maxDistance = 50000
-      const score = Math.round(maxScore + (distance - 1) * ((minScore - maxScore) / (maxDistance - 1)))
-      return score > 0 ? score : 0
     }
   }
 }
@@ -199,6 +204,9 @@ export default {
 @import "~bootstrap/scss/_functions";
 @import "~bootstrap/scss/_variables";
 @import "~bootstrap/scss/_mixins";
+
+$score-bar-height: 6rem;
+$button-bar-height: 5rem;
 
 .score-bar {
   position: fixed;
@@ -220,7 +228,7 @@ export default {
   }
 
   .question {
-    font-size: 2.25rem;
+    font-size: 2rem;
     text-align: center;
     margin: 0 auto;
   }
@@ -229,16 +237,12 @@ export default {
     display: flex;
     flex-direction: column;
     text-align: right;
-    font-size: 1.15rem;
+    font-size: 1rem;
+    line-height: 0.85;
 
     &-points {
       font-family: $headings-font-family;
       font-size: 3rem;
-      line-height: 1.2;
-    }
-
-    &-label {
-      line-height: 0.8;
     }
   }
 }
@@ -246,6 +250,8 @@ export default {
 .location {
   width: 100%;
   position: relative;
+  transition: .2s;
+  transform: translateY(-3rem);
 
   &-street-view {
     display: flex;
@@ -256,9 +262,10 @@ export default {
 
     &-canvas {
       border: 14px solid $white;
-      width: 90%;
+      width: 95%;
       transform: rotate(1deg);
-      height: 60vh;
+      height: 74vh;
+      box-shadow: $box-shadow-sm;
     }
   }
 
@@ -273,7 +280,7 @@ export default {
       height: 20vh;
       transition: .25s;
       min-width: 250px;
-      min-height: 200px;
+      min-height: 300px;
       box-shadow: $box-shadow;
 
       &:hover {
@@ -281,7 +288,38 @@ export default {
         width: 45%;
       }
     }
+
+    .make-guess {
+      position: absolute;
+      bottom: -9rem;
+      left: 10%;
+      width: 300px;
+      text-align: center;
+    }
   }
+}
+
+.close-map-button {
+  display: none;
+}
+
+.next-button {
+  margin-top: 2rem;
+
+  .geo-button {
+    font-size: 1.5rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+.geo-button.map-button {
+  position: absolute;
+  bottom: -7rem;
+  right: 15%;
+  font-size: 1.5rem;
+  padding-left: 3rem;
+  padding-right: 3rem;
 }
 
 .button-container {
@@ -290,7 +328,7 @@ export default {
   bottom: 2rem;
   left: 0;
   right: 0;
-  display: flex;
+  display: none;
   justify-content: center;
   width: 100%;
   max-width: 400px;
@@ -302,25 +340,29 @@ export default {
 
 .guessed {
   .location {
+    transform: translateY(0);
+
     &-street-view {
       align-items: flex-end;
 
       &-canvas {
         width: 65%;
-        height: 500px;
+        height: 50vh;
         transition: .6s ease-out;
       }
     }
 
     &-map-canvas {
       transform: rotate(-2deg);
-      height: 350px;
+      height: 40vh;
+      max-height: 350px;
       width: 45%;
       left: 0;
       transition: .6s ease-out;
+      bottom: -3rem;
 
       &:hover {
-        height: 350px;
+        height: 40vh;
         width: 45%;
       }
     }
@@ -328,7 +370,7 @@ export default {
 }
 
 .result {
-  margin-top: 10rem;
+  margin-top: 7rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -338,7 +380,6 @@ export default {
     display: flex;
     flex-direction: column;
     text-align: center;
-    margin-bottom: 1rem;
 
     &-points {
       font-family: $headings-font-family;
@@ -348,20 +389,29 @@ export default {
   }
 
   &-distance {
-    font-size: 2rem;
+    font-size: 1.75rem;
   }
 
   &-text {
-    margin: 2rem 0;
+    margin: 1rem 0;
     font-size: 1.25rem;
     text-align: center;
     max-width: 800px;
   }
 }
 
-@include media-breakpoint-down(sm) {
+.show-map-button {
+  display: none;
+}
+
+@include media-breakpoint-down(md) {
   .score-bar {
-    //sadasd
+    height: $score-bar-height;
+
+    .question {
+      font-size: 1.25rem;
+      line-height: 1.1;
+    }
   }
 
   .location {
@@ -371,6 +421,7 @@ export default {
     top: 0;
     left: 0;
     right: 0;
+    transform: translateY(0);
 
     &-street-view {
       width: 100%;
@@ -384,35 +435,99 @@ export default {
     }
 
     &-map {
-      display: block;
+      display: none;
       z-index: 10;
       position: fixed;
-      top: 0;
+      top: $score-bar-height;
       left: 0;
       right: 0;
-      height: 100vh;
-      padding: 0 1rem;
+      bottom: $button-bar-height;
+      padding: 1rem;
 
       &-canvas {
         position: relative;
         width: 100%;
-        height: 70vh;
+        height: 100%;
         left: 0;
-        bottom: -7rem;
+        top: 0;
+        bottom: 0;
+        right: 0;
+
+        &:hover {
+          width: 100%;
+          height: 100%;
+        }
       }
 
       &-show {
+        display: flex !important;
+      }
+
+      .close-map-button {
         display: block;
         position: absolute;
+        top: 1rem;
+        right: 1rem;
+        z-index: 10;
+        background: $white;
+        border: 0;
+        font-size: 2.5rem;
+        padding: 0 1.25rem;
       }
     }
   }
 
-  .button-container {
-    bottom: .5rem;
+  .guessed {
+    .location {
+      background: $yellow;
+      height: 33vh;
+    }
 
-    .geo-button {
-      height: 65px;
+    .location-street-view,
+    .close-map-button {
+      display: none;
+    }
+
+    .location-map-canvas,
+    .location-map-canvas:hover {
+      width: 100%;
+      height: 33vh;
+      min-height: 30vh;
+    }
+
+    .result {
+      margin-top: 38vh;
+    }
+  }
+
+  .button-show {
+    display: block !important;
+  }
+
+  .button-hide {
+    display: none !important;
+  }
+
+  .button-container {
+    height: $button-bar-height;
+    padding: .5rem;
+    bottom: 0;
+    display: flex;
+  }
+
+  .guess-button {
+    display: none;
+  }
+
+  .show-map-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    svg {
+      width: 1.5em;
+      height: 1.5em;
+      margin-right: .5em;
     }
   }
 }
