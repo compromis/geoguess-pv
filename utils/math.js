@@ -23,4 +23,8 @@ function calculateScore (distance) {
   return score > 0 ? score : 0
 }
 
-export { calculateDistance, calculateScore }
+function inKm (value) {
+  return value > 1000 ? (value / 1000).toFixed(0) + ' km' : value + ' metres'
+}
+
+export { calculateDistance, calculateScore, inKm }

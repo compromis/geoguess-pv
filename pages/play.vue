@@ -19,6 +19,10 @@ export default {
     currentRound () {
       return this.$store.state.round
     }
+  },
+
+  created () {
+    this.$store.commit('reset')
   }
 }
 </script>

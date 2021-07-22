@@ -7,7 +7,9 @@
       aria-valuemin="0"
       aria-valuemax="500"
       :style="{ width }"
-    />
+    >
+      <span />
+    </div>
   </div>
 </template>
 
@@ -39,8 +41,22 @@ export default {
   margin: 1.25rem;
 
   .fill {
-    background: $black;
-    height: 1rem;
+    span {
+      display: flex;
+      background: $black;
+      height: 1rem;
+      animation: fill 2s forwards;
+    }
+  }
+}
+
+@keyframes fill {
+  0% {
+    width: 0;
+  }
+
+  100% {
+    width: 100%;
   }
 }
 </style>

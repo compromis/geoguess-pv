@@ -12,7 +12,7 @@
       </div>
       <div class="score">
         <span class="score-points">{{ score }}</span>
-        <span class="score-label">de 2.500</span>
+        <span class="score-label">de {{ game.length * 500 | formatNumber }}</span>
       </div>
     </div>
     <div class="location">
@@ -108,7 +108,7 @@
 </template>
 
 <script>
-import { calculateDistance, calculateScore } from '../utils/math'
+import { calculateDistance, calculateScore, inKm } from '../utils/math'
 import questionPin from '../assets/images/question-pin.png'
 import flagPin from '../assets/images/flag-pin.png'
 
@@ -121,8 +121,12 @@ const flagIcon = {
 
 export default {
   filters: {
+    formatNumber (number) {
+      return new Intl.NumberFormat('es-ES').format(number)
+    },
+
     inKm (value) {
-      return value > 1000 ? (value / 1000).toFixed(0) + 'km' : value + ' metres'
+      return inKm(value)
     }
   },
 
@@ -183,6 +187,7 @@ export default {
       this.$store.commit('addPoints', this.roundScore)
       this.$store.commit('recordResult', {
         round: this.round,
+        guess: this.currentGuess,
         distance: this.distance,
         score: this.roundScore
       })

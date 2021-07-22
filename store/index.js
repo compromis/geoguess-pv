@@ -18,5 +18,11 @@ export const mutations = {
 
   recordResult (state, result) {
     state.summary.push(result)
+  },
+
+  reset (state) {
+    state.round = 1
+    state.score = 0
+    state.summary = []
   }
 }
