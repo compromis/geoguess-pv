@@ -405,10 +405,6 @@ export default {
   }
 }
 
-.show-map-button {
-  display: none;
-}
-
 @include media-breakpoint-down(md) {
   .score-bar {
     height: $score-bar-height;
@@ -527,22 +523,11 @@ export default {
   }
 
   .button-container {
+    position: fixed;
     height: $button-bar-height;
     padding: .5rem;
     bottom: 0;
     display: flex;
-  }
-
-  .show-map-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    svg {
-      width: 1.5em;
-      height: 1.5em;
-      margin-right: .5em;
-    }
   }
 }
 </style>

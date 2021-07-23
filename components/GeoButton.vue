@@ -1,5 +1,5 @@
 <template>
-  <component :is="tag" :to="to" :class="['geo-button', variant]" @click="$emit('click', $event)">
+  <component :is="tag" :to="to" :href="href" :class="['geo-button', variant]" @click="$emit('click', $event)">
     <slot />
   </component>
 </template>
@@ -11,6 +11,10 @@ export default {
       type: String,
       default: ''
     },
+    href: {
+      type: String,
+      default: ''
+    },
     variant: {
       type: String,
       default: ''
@@ -19,40 +23,62 @@ export default {
 
   computed: {
     tag () {
-      return this.to ? 'nuxt-link' : 'button'
+      return this.to ? 'nuxt-link' : this.href ? 'a' : 'button'
     }
   }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+@import "~bootstrap/scss/_functions";
+@import "~bootstrap/scss/_variables";
+@import "~bootstrap/scss/_mixins";
+
 .geo-button {
-  display: inline-block;
+  display: inline-flex;
   outline: none;
   background: $green;
   border: 2px solid $black;
-  padding: .5rem 1rem;
+  padding: .5rem 1.25rem;
   font-size: 1.35rem;
   transition: .25s;
   color: $black;
   text-decoration: none;
+  align-items: center;
+  justify-content: center;
 
   &:not(.disabled):hover {
     transform: rotate(-4deg) scale(1.05);
     box-shadow: $box-shadow;
+    color: $black;
   }
 
   &:not(.disabled):active {
     transform: rotate(2deg) scale(0.98);
     transition: .1s;
   }
+
+  &.disabled {
+    background: lightgray;
+  }
+
+  &.yellow {
+    background: $yellow;
+  }
+
+  svg {
+    width: 1em;
+    height: 1em;
+    margin-right: .5em;
+  }
 }
 
-.disabled {
-  background: lightgray;
-}
-
-.yellow {
-  background: $yellow;
+@include media-breakpoint-down(md) {
+  .geo-button:not(.disabled) {
+    &:hover,
+    &:active {
+      transform: rotate(0) scale(1);
+    }
+  }
 }
 </style>

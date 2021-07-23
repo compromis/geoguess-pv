@@ -53,21 +53,22 @@ export default {
     h1 {
       line-height: 1;
       font-size: calc(3.25rem + 3.75vw);
+      font-size: clamp(4rem, 7vw, 9rem);
       margin-bottom: -2vh;
     }
 
     p {
-      font-size: calc(1.25rem + 1.75vw);
-      font-size: clamp(1.15rem, 2vw, 1.75rem);
+      font-size: $text-base-fallback;
+      font-size: $text-base;
       max-width: 60ch;
       margin: 1rem auto;
       line-height: 1.25;
     }
 
     .play {
-      margin: 2rem 0;
-      font-size: calc(1.25rem + 1.75vw);
-      font-size: clamp(1.5rem, 2vw, 2.15rem);
+      margin: 3vh 0;
+      font-size: $text-lg-fallback;
+      font-size: $text-lg;
       width: 100%;
       max-width: 350px;
     }

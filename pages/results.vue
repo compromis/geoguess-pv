@@ -4,6 +4,9 @@
       <span class="results-headline-points">{{ score | formatNumber }}</span>
       <span class="results-headline-label">Punts</span>
     </h1>
+    <p class="results-text">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </p>
     <div class="cols">
       <div class="results-map">
         <gmap-map
@@ -68,8 +71,33 @@
         </table>
       </div>
     </div>
-    <geo-button to="play">
-      Torna a jugar
+    <div class="results-share">
+      <h2>Comparteix la teua puntuació<br>i repta a les teues amistats</h2>
+      <ul>
+        <li>
+          <geo-button variant="tweet" href="https://twitter.com/intent/tweet/?text=&url=https://trencancelado.com&hashtags=OnEstaElMeuTren">
+            Tweet
+          </geo-button>
+        </li>
+        <li>
+          <geo-button variant="facebook" href="https://twitter.com/intent/tweet/?text=&url=https://trencancelado.com&hashtags=OnEstaElMeuTren">
+            Facebook
+          </geo-button>
+        </li>
+        <li>
+          <geo-button variant="whatsapp" href="https://twitter.com/intent/tweet/?text=&url=https://trencancelado.com&hashtags=OnEstaElMeuTren">
+            Whatsapp
+          </geo-button>
+        </li>
+        <li>
+          <geo-button variant="telegram" href="https://twitter.com/intent/tweet/?text=&url=https://trencancelado.com&hashtags=OnEstaElMeuTren">
+            Telegram
+          </geo-button>
+        </li>
+      </ul>
+    </div>
+    <geo-button to="play" class="replay">
+      <replay-icon /> Torna a jugar
     </geo-button>
   </div>
 </template>
@@ -161,12 +189,12 @@ export default {
   .results {
     max-width: 1600px;
     width: 100%;
-    padding: 0 1rem;
+    padding: 4vh 1rem;
     text-align: center;
 
     &-headline {
       line-height: .9;
-      padding: 4vh 0;
+      padding: 0;
 
       &-points {
         font-size: calc(5rem + 1vw);
@@ -176,8 +204,16 @@ export default {
         display: block;
         font-family: $font-family-sans-serif;
         text-transform: capitalize;
-        font-size: 2rem;
+        font-size: $text-base-fallback;
+        font-size: $text-base;
       }
+    }
+
+    &-text {
+      max-width: 60ch;
+      font-size: $text-base-fallback;
+      font-size: $text-base;
+      margin: 3vh auto;
     }
 
     &-map {
@@ -244,10 +280,38 @@ export default {
 
       .results-map {
         &-canvas {
-          height: 675px;
+          height: 625px;
         }
       }
     }
+
+    &-share {
+      margin: 6vh 0;
+
+      h2 {
+        font-family: $font-family-sans-serif;
+        text-transform: initial;
+        font-size: $text-base-fallback;
+        font-size: $text-base;
+      }
+
+      ul {
+        list-style: none;
+        display: flex;
+        justify-content: center;
+        margin: 2rem 0;
+        padding: 0;
+      }
+
+      li {
+        margin: 0 .5rem;
+      }
+    }
+  }
+
+  .replay {
+    font-size: $text-lg-fallback;
+    font-size: $text-lg;
   }
 
   @include media-breakpoint-down(md) {

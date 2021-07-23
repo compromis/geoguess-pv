@@ -12,3 +12,8 @@ $box-shadow-sm: 3px 3px 20px -3px rgba($black, .25);
 $nav-bar-height: 4.5rem;
 $score-bar-height: 5rem;
 $button-bar-height: 5rem;
+
+$text-base-fallback: calc(1.25rem + 1.75vw);
+$text-base: clamp(1.15rem, 1.5vw, 1.75rem);
+$text-lg-fallback: calc(1.25rem + 1.75vw);
+$text-lg: clamp(1.5rem, 1.75vw, 2.15rem);
