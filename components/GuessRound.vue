@@ -70,7 +70,7 @@
     </div>
     <div class="button-container">
       <geo-button v-if="!guessed" :class="['guess-button', { 'button-hide': !showMap }]" @click="guess">
-        Es ací ->
+        Crec que és ací ->
       </geo-button>
       <geo-button v-if="!guessed" :class="['show-map-button', { 'button-hide': showMap }]" @click="showMap = !showMap">
         <map-icon />
@@ -210,9 +210,6 @@ export default {
 @import "~bootstrap/scss/_variables";
 @import "~bootstrap/scss/_mixins";
 
-$score-bar-height: 6rem;
-$button-bar-height: 5rem;
-
 .score-bar {
   position: fixed;
   top: 0;
@@ -222,7 +219,7 @@ $button-bar-height: 5rem;
   align-items: center;
   justify-content: center;
   width: 100%;
-  padding: .5rem 1rem;
+  padding: 0 1rem;
   background: $yellow;
   z-index: 10;
 
@@ -230,12 +227,14 @@ $button-bar-height: 5rem;
     font-family: $headings-font-family;
     font-size: 3.5rem;
     line-height: 1.2;
+    transform: translateY(.06em);
   }
 
   .question {
-    font-size: 2rem;
+    font-size: 1.75rem;
     text-align: center;
     margin: 0 auto;
+    padding: 0 .5rem;
   }
 
   .score {
@@ -256,7 +255,8 @@ $button-bar-height: 5rem;
   width: 100%;
   position: relative;
   transition: .2s;
-  transform: translateY(-3rem);
+  transform: translateY(-3vh);
+  z-index: 1000;
 
   &-street-view {
     display: flex;
@@ -414,40 +414,44 @@ $button-bar-height: 5rem;
     height: $score-bar-height;
 
     .question {
-      font-size: 1.25rem;
+      font-size: 1.15rem;
       line-height: 1.1;
     }
   }
 
   .location {
     width: 100%;
-    height: 100vh;
     position: fixed;
-    top: 0;
+    top: $score-bar-height;
+    bottom: $button-bar-height;
     left: 0;
     right: 0;
     transform: translateY(0);
+    display: flex;
 
     &-street-view {
+      display: flex;
       width: 100%;
 
       &-canvas {
         width: 100%;
-        height: calc(100vh - 80px);
+        height: 100%;
         border: none;
         transform: none;
+        border-width: 10px;
       }
     }
 
     &-map {
-      display: none;
+      transform: translateX(100%) rotate(5deg);
       z-index: 10;
       position: fixed;
-      top: $score-bar-height;
+      top: 1rem;
       left: 0;
       right: 0;
-      bottom: $button-bar-height;
+      bottom: 1rem;
       padding: 1rem;
+      transition: .5s cubic-bezier(.17,.67,.23,1.18);
 
       &-canvas {
         position: relative;
@@ -457,6 +461,7 @@ $button-bar-height: 5rem;
         top: 0;
         bottom: 0;
         right: 0;
+        border-width: 10px;
 
         &:hover {
           width: 100%;
@@ -465,7 +470,7 @@ $button-bar-height: 5rem;
       }
 
       &-show {
-        display: flex !important;
+        transform: translateX(0%) rotate(0);
       }
 
       .close-map-button {
@@ -486,6 +491,10 @@ $button-bar-height: 5rem;
     .location {
       background: $yellow;
       height: 33vh;
+
+      &-map {
+        top: 0;
+      }
     }
 
     .location-street-view,
@@ -501,7 +510,11 @@ $button-bar-height: 5rem;
     }
 
     .result {
-      margin-top: 38vh;
+      margin-top: 42vh;
+
+      &-text {
+        font-size: 1rem;
+      }
     }
   }
 
@@ -518,10 +531,6 @@ $button-bar-height: 5rem;
     padding: .5rem;
     bottom: 0;
     display: flex;
-  }
-
-  .guess-button {
-    display: none;
   }
 
   .show-map-button {

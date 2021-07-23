@@ -18,6 +18,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "~bootstrap/scss/_functions";
+@import "~bootstrap/scss/_variables";
+@import "~bootstrap/scss/_mixins";
+
 .page {
   background: $yellow;
   min-height: 100vh;
@@ -25,28 +29,38 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 3rem 0;
+  padding: $nav-bar-height 0;
 }
 
 .logo {
   position: fixed;
   display: flex;
   align-items: center;
-  top: 1rem;
-  left: 1rem;
-  right: 1rem;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  height: $nav-bar-height;
+  padding: 0 1rem;
 
   a {
     color: $black;
   }
 
   svg {
-    height: 2.25rem;
+    height: 2rem;
   }
 
   p {
     margin-left: auto;
-    font-size: 1.5rem;
+    font-size: 1.25rem;
+    margin-bottom: 0;
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .logo {
+    background: $yellow;
   }
 }
 </style>

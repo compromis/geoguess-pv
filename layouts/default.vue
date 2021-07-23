@@ -18,7 +18,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 7rem 1rem;
+  padding: $score-bar-height 1rem;
 }
 
 .container {

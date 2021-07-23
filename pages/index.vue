@@ -17,7 +17,9 @@
     </div>
     <div class="container">
       <p>
-        Sabries indicar en el mapa on es troben aquests punts del nostre territori?<br>
+        Sabries indicar en el mapa on es troben aquests punts del nostre territori?
+      </p>
+      <p>
         Una pista: tots es troben en risc per culpa de l'especulació i les obres faraòniques depredadores i innecessàries.
       </p>
       <geo-button to="/play" class="play">
@@ -50,19 +52,22 @@ export default {
 
     h1 {
       line-height: 1;
-      font-size: calc(3.5rem + 4vw);
+      font-size: calc(3.25rem + 3.75vw);
+      margin-bottom: -2vh;
     }
 
     p {
-      font-size: calc(1rem + .75vw);
+      font-size: calc(1.25rem + 1.75vw);
+      font-size: clamp(1.15rem, 2vw, 1.75rem);
       max-width: 60ch;
-      margin: 2rem auto;
+      margin: 1rem auto;
       line-height: 1.25;
     }
 
     .play {
-      margin: 2rem 0 3rem;
-      font-size: 2rem;
+      margin: 2rem 0;
+      font-size: calc(1.25rem + 1.75vw);
+      font-size: clamp(1.5rem, 2vw, 2.15rem);
       width: 100%;
       max-width: 350px;
     }
@@ -71,7 +76,7 @@ export default {
   .images {
     display: flex;
     overflow-x: hidden;
-    padding: 2rem;
+    padding: 4vh 0;
 
     img {
       border: calc(2px + .4vw) $white solid;
@@ -79,6 +84,8 @@ export default {
       margin: 0;
       width: 30vw;
       max-width: 500px;
+      max-height: 25vh;
+      object-fit: cover;
     }
 
     .image-1 {

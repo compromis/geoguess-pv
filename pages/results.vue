@@ -39,8 +39,8 @@
         <table>
           <colgroup>
             <col>
-            <col width="120">
-            <col width="120">
+            <col width="100">
+            <col width="100">
           </colgroup>
           <tbody>
             <tr v-for="(result, i) in summary" :key="i">
@@ -154,6 +154,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  @import "~bootstrap/scss/_functions";
+  @import "~bootstrap/scss/_variables";
+  @import "~bootstrap/scss/_mixins";
+
   .results {
     max-width: 1600px;
     width: 100%;
@@ -162,16 +166,17 @@ export default {
 
     &-headline {
       line-height: .9;
+      padding: 4vh 0;
 
       &-points {
-        font-size: calc(3rem + 4vw);
+        font-size: calc(5rem + 1vw);
       }
 
       &-label {
         display: block;
         font-family: $font-family-sans-serif;
         text-transform: capitalize;
-        font-size: 2.25rem;
+        font-size: 2rem;
       }
     }
 
@@ -240,6 +245,40 @@ export default {
       .results-map {
         &-canvas {
           height: 675px;
+        }
+      }
+    }
+  }
+
+  @include media-breakpoint-down(md) {
+    .results {
+      &-headline {
+        &-label {
+          font-size: 1.5rem;
+        }
+      }
+
+      &-summary {
+        table {
+          margin: 1.5rem auto;
+        }
+
+        th,
+        &-distance {
+          font-size: 1rem;
+        }
+
+        &-score span {
+          font-size: 1.5rem;
+        }
+      }
+
+      .cols {
+        grid-template-columns: 1fr;
+
+        .results-map-canvas {
+          height: 35vh;
+          border-width: 10px;
         }
       }
     }
