@@ -1,5 +1,12 @@
 <template>
-  <component :is="tag" :to="to" :href="href" :class="['geo-button', variant]" @click="$emit('click', $event)">
+  <component
+    :is="tag"
+    :to="to"
+    :href="href"
+    v-bind="$attrs"
+    :class="['geo-button', variant]"
+    @click="$emit('click', $event)"
+  >
     <slot />
   </component>
 </template>
@@ -48,13 +55,13 @@ export default {
   justify-content: center;
 
   &:not(.disabled):hover {
-    transform: rotate(-4deg) scale(1.05);
+    transform: rotate(-3deg) scale(1.05);
     box-shadow: $box-shadow;
     color: $black;
   }
 
   &:not(.disabled):active {
-    transform: rotate(2deg) scale(0.98);
+    transform: rotate(1.5deg) scale(0.98);
     transition: .1s;
   }
 
@@ -64,6 +71,26 @@ export default {
 
   &.yellow {
     background: $yellow;
+  }
+
+  &.twitter {
+    background: #1DA1F2;
+    color: $white !important;
+  }
+
+  &.facebook {
+    background: #1778F2;
+    color: $white !important;
+  }
+
+  &.whatsapp {
+    background: #25D366;
+    color: $white !important;
+  }
+
+  &.telegram {
+    background: #0088cc;
+    color: $white !important;
   }
 
   svg {

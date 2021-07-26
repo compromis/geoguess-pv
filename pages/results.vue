@@ -1,124 +1,118 @@
 <template>
-  <div class="results">
-    <h1 class="results-headline">
-      <span class="results-headline-points">{{ score | formatNumber }}</span>
-      <span class="results-headline-label">Punts</span>
-    </h1>
-    <p class="results-text">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-    </p>
-    <div class="cols">
-      <div class="results-map">
-        <gmap-map
-          ref="map"
-          class="results-map-canvas"
-          :zoom="7"
-          :center="pvPosition"
-          :options="{
-            zoomControl: true,
-            mapTypeControl: false,
-            scaleControl: false,
-            streetViewControl: false,
-            rotateControl: false,
-            fullscreenControl: false,
-            disableDefaultUI: true,
-            clickableIcons: false
-          }"
-        >
-          <gmap-marker
-            v-for="(marker, i) in markers"
-            :key="'marker' + i"
-            :position="marker.position"
-            :icon="marker.icon"
-          />
-          <gmap-polyline
-            v-for="(path, i) in paths"
-            :key="'path' + i"
-            :path="path"
-          />
-        </gmap-map>
+  <div class="page">
+    <geo-nav />
+    <div class="results">
+      <h1 class="results-headline">
+        <span class="results-headline-points">{{ score | formatNumber }}</span>
+        <span class="results-headline-label">Punts</span>
+      </h1>
+      <p class="results-text">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      </p>
+      <div class="cols">
+        <div class="results-map">
+          <gmap-map
+            ref="map"
+            class="results-map-canvas"
+            :zoom="8"
+            :center="pvPosition"
+            :options="{
+              zoomControl: true,
+              mapTypeControl: false,
+              scaleControl: false,
+              streetViewControl: false,
+              rotateControl: false,
+              fullscreenControl: false,
+              disableDefaultUI: true,
+              clickableIcons: false
+            }"
+          >
+            <gmap-marker
+              v-for="(marker, i) in markers"
+              :key="'marker' + i"
+              :position="marker.position"
+              :icon="marker.icon"
+            />
+            <gmap-polyline
+              v-for="(path, i) in paths"
+              :key="'path' + i"
+              :path="path"
+            />
+          </gmap-map>
+        </div>
+        <div class="results-summary">
+          <table>
+            <colgroup>
+              <col>
+              <col width="100">
+              <col width="100">
+            </colgroup>
+            <tbody>
+              <tr v-for="(result, i) in summary" :key="i">
+                <th>
+                  {{ result.round.label }}
+                </th>
+                <td class="results-summary-distance">
+                  {{ result.distance | inKm }}
+                </td>
+                <td class="results-summary-score">
+                  <span>+{{ result.score | formatNumber }}</span>
+                </td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr class="results-summary-total">
+                <th colspan="2">
+                  Total
+                </th>
+                <td class="results-summary-score">
+                  <span>{{ score | formatNumber }}</span>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
       </div>
-      <div class="results-summary">
-        <table>
-          <colgroup>
-            <col>
-            <col width="100">
-            <col width="100">
-          </colgroup>
-          <tbody>
-            <tr v-for="(result, i) in summary" :key="i">
-              <th>
-                {{ result.round.label }}
-              </th>
-              <td class="results-summary-distance">
-                {{ result.distance | inKm }}
-              </td>
-              <td class="results-summary-score">
-                <span>+{{ result.score | formatNumber }}</span>
-              </td>
-            </tr>
-          </tbody>
-          <tfoot>
-            <tr class="results-summary-total">
-              <th colspan="2">
-                Total
-              </th>
-              <td class="results-summary-score">
-                <span>{{ total | formatNumber }}</span>
-              </td>
-            </tr>
-          </tfoot>
-        </table>
+      <div class="results-share">
+        <h2>Comparteix la teua puntuació<br>i repta a les teues amistats</h2>
+        <ul>
+          <li>
+            <geo-button variant="twitter" :href="`https://twitter.com/intent/tweet/?text=${shareable.text}&url=${shareable.url}&hashtags=${shareable.hashtag}`" target="_blank">
+              <icons-twitter /> Twitter
+            </geo-button>
+          </li>
+          <li>
+            <geo-button variant="facebook" :href="`https://www.facebook.com/sharer/sharer.php?u=${shareable.url}`" target="_blank">
+              <icons-facebook /> Facebook
+            </geo-button>
+          </li>
+          <li>
+            <geo-button variant="whatsapp" :href="`whatsapp://send?text=${shareable.text} ${shareable.url}`" target="_blank">
+              <icons-whatsapp />Whatsapp
+            </geo-button>
+          </li>
+          <li>
+            <geo-button variant="telegram" :href="`https://t.me/share/url?url=${shareable.url}&text=${shareable.text}`" target="_blank">
+              <icons-telegram />Telegram
+            </geo-button>
+          </li>
+        </ul>
       </div>
+      <geo-button to="play" variant="yellow" class="replay">
+        <icons-replay /> Torna a jugar
+      </geo-button>
     </div>
-    <div class="results-share">
-      <h2>Comparteix la teua puntuació<br>i repta a les teues amistats</h2>
-      <ul>
-        <li>
-          <geo-button variant="tweet" href="https://twitter.com/intent/tweet/?text=&url=https://trencancelado.com&hashtags=OnEstaElMeuTren">
-            Tweet
-          </geo-button>
-        </li>
-        <li>
-          <geo-button variant="facebook" href="https://twitter.com/intent/tweet/?text=&url=https://trencancelado.com&hashtags=OnEstaElMeuTren">
-            Facebook
-          </geo-button>
-        </li>
-        <li>
-          <geo-button variant="whatsapp" href="https://twitter.com/intent/tweet/?text=&url=https://trencancelado.com&hashtags=OnEstaElMeuTren">
-            Whatsapp
-          </geo-button>
-        </li>
-        <li>
-          <geo-button variant="telegram" href="https://twitter.com/intent/tweet/?text=&url=https://trencancelado.com&hashtags=OnEstaElMeuTren">
-            Telegram
-          </geo-button>
-        </li>
-      </ul>
-    </div>
-    <geo-button to="play" class="replay">
-      <replay-icon /> Torna a jugar
-    </geo-button>
   </div>
 </template>
 
 <script>
-import { inKm } from '../utils/math'
+import { url } from '../content/meta'
+import filtersMixin from '../utils/filtersMixin'
 import questionPin from '../assets/images/question-pin.png'
 import flagPin from '../assets/images/flag-pin.png'
 
 export default {
-  filters: {
-    formatNumber (number) {
-      return new Intl.NumberFormat('ca-ES').format(number)
-    },
-
-    inKm (value) {
-      return inKm(value)
-    }
-  },
-
-  layout: 'home',
+  mixins: [filtersMixin],
 
   middleware ({ store, redirect }) {
     if (!store.state.summary.length) {
@@ -135,6 +129,12 @@ export default {
     }
   },
 
+  head () {
+    return {
+      title: 'Resultats - En perill de destrucció - Quiz - Compromís'
+    }
+  },
+
   computed: {
     score () {
       return this.$store.state.score
@@ -142,10 +142,6 @@ export default {
 
     summary () {
       return this.$store.state.summary
-    },
-
-    total () {
-      return this.summary.length ? this.summary.reduce((a, b) => ({ score: a.score + b.score })).score : 0
     },
 
     markers () {
@@ -176,6 +172,16 @@ export default {
       })
 
       return paths
+    },
+
+    shareable () {
+      const text = `He tret ${this.score} punts al mapa-quiz En Perill de Destrucció de Compromís. Pots superar-ho?`
+
+      return {
+        url: encodeURIComponent(url),
+        text: encodeURIComponent(text),
+        hashtag: 'EnPerillDeDestrucció'
+      }
     }
   }
 }
@@ -298,13 +304,14 @@ export default {
       ul {
         list-style: none;
         display: flex;
+        flex-wrap: wrap;
         justify-content: center;
         margin: 2rem 0;
         padding: 0;
       }
 
       li {
-        margin: 0 .5rem;
+        margin: 0 .5rem 1rem;
       }
     }
   }

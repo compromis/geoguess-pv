@@ -68,16 +68,16 @@
         </geo-button>
       </div>
     </div>
-    <div class="button-container">
-      <geo-button v-if="!guessed" :class="['guess-button', { 'button-hide': !showMap }]" @click="guess">
-        Crec que és ací ->
+    <div v-if="!guessed" class="button-container">
+      <geo-button :variant="markers.length ? 'primary' : 'disabled'" :class="['guess-button', { 'button-hide': !showMap }]" @click="guess">
+        {{ markers.length ? 'Crec que és ací ->' : 'Tria un punt al mapa' }}
       </geo-button>
-      <geo-button v-if="!guessed" :class="['show-map-button', { 'button-hide': showMap }]" @click="showMap = !showMap">
-        <map-icon />
+      <geo-button :class="['show-map-button', { 'button-hide': showMap }]" @click="showMap = !showMap">
+        <icons-map />
         Endevina-ho
       </geo-button>
     </div>
-    <div v-if="guessed" class="result">
+    <div v-else class="result">
       <div class="result-score">
         <span class="result-score-points">+ {{ roundScore }}</span>
         <span class="result-score-label">Punts</span>
@@ -108,27 +108,13 @@
 </template>
 
 <script>
-import { calculateDistance, calculateScore, inKm } from '../utils/math'
+import { calculateDistance, calculateScore } from '../utils/math'
 import questionPin from '../assets/images/question-pin.png'
 import flagPin from '../assets/images/flag-pin.png'
-
-const userIcon = {
-  url: questionPin
-}
-const flagIcon = {
-  url: flagPin
-}
+import filtersMixin from '../utils/filtersMixin'
 
 export default {
-  filters: {
-    formatNumber (number) {
-      return new Intl.NumberFormat('es-ES').format(number)
-    },
-
-    inKm (value) {
-      return inKm(value)
-    }
-  },
+  mixins: [filtersMixin],
 
   props: {
     round: {
@@ -167,22 +153,33 @@ export default {
   },
 
   methods: {
-    setMarker (event) {
+    setMarker ({ latLng }) {
       if (this.guessed) { return }
-      this.markers = [{ position: { lat: event.latLng.lat(), lng: event.latLng.lng() }, icon: userIcon }]
-      this.updateLat(event)
+      this.markers = [{
+        position: { lat: latLng.lat(), lng: latLng.lng() },
+        icon: questionPin
+      }]
+      this.updateLat({ latLng })
     },
 
     guess () {
-      const { lat: lat1, lng: lon1 } = this.currentGuess
-      const { lat: lat2, lng: lon2 } = this.round.position
-      this.markers.push({ position: this.round.position, icon: flagIcon })
-      this.path = [
-        { lat: lat1, lng: lon1 },
-        { lat: lat2, lng: lon2 }
-      ]
-      this.distance = calculateDistance({ lat1, lat2, lon1, lon2 })
+      if (!this.markers.length) {
+        alert('Primer has de triar un punt al mapa')
+        return
+      }
+
+      // Add result markers and path
+      this.markers.push({ position: this.round.position, icon: flagPin })
+      this.path = [this.currentGuess, this.round.position]
+
+      // Fit map to bounds
+      this.fitToBounds(this.path)
+
+      // Calculate distance and score
+      this.distance = calculateDistance(this.path)
       this.roundScore = calculateScore(this.distance)
+
+      // Record result and add points
       this.guessed = true
       this.$store.commit('addPoints', this.roundScore)
       this.$store.commit('recordResult', {
@@ -197,9 +194,18 @@ export default {
       this.$store.commit('nextRound')
     },
 
-    updateLat (event) {
-      this.currentGuess.lat = event.latLng.lat()
-      this.currentGuess.lng = event.latLng.lng()
+    updateLat ({ latLng }) {
+      this.currentGuess.lat = latLng.lat()
+      this.currentGuess.lng = latLng.lng()
+    },
+
+    fitToBounds ([guess, answer]) {
+      this.$refs.map.$mapPromise.then((map) => {
+        const bounds = new window.google.maps.LatLngBounds()
+        bounds.extend(guess)
+        bounds.extend(answer)
+        map.fitBounds(bounds)
+      })
     }
   }
 }
@@ -246,7 +252,7 @@ export default {
 
     &-points {
       font-family: $headings-font-family;
-      font-size: 3rem;
+      font-size: 2.5rem;
     }
   }
 }
@@ -255,8 +261,8 @@ export default {
   width: 100%;
   position: relative;
   transition: .2s;
-  transform: translateY(-3vh);
   z-index: 1000;
+  padding-bottom: 7rem;
 
   &-street-view {
     display: flex;
@@ -277,7 +283,7 @@ export default {
   &-map {
     &-canvas {
       position: absolute;
-      bottom: -5rem;
+      bottom: 1rem;
       left: 10%;
       width: 25%;
       border: 14px solid $white;
@@ -286,10 +292,11 @@ export default {
       transition: .25s;
       min-width: 250px;
       min-height: 300px;
+      max-height: 500px;
       box-shadow: $box-shadow;
 
       &:hover {
-        height: 35vh;
+        height: 55vh;
         width: 45%;
       }
     }
@@ -320,7 +327,7 @@ export default {
 
 .geo-button.map-button {
   position: absolute;
-  bottom: -7rem;
+  bottom: 1.5rem;
   right: 15%;
   font-size: 1.5rem;
   padding-left: 3rem;
@@ -364,7 +371,7 @@ export default {
       width: 45%;
       left: 0;
       transition: .6s ease-out;
-      bottom: -3rem;
+      bottom: 3rem;
 
       &:hover {
         height: 40vh;
@@ -375,11 +382,12 @@ export default {
 }
 
 .result {
-  margin-top: 7rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: -1rem;
+  padding-bottom: $score-bar-height;
 
   &-score {
     display: flex;
@@ -394,7 +402,10 @@ export default {
   }
 
   &-distance {
-    font-size: 1.75rem;
+    font-size: $text-lg-fallback;
+    font-size: $text-lg;
+    text-align: center;
+    line-height: 1.1;
   }
 
   &-text {
@@ -424,6 +435,7 @@ export default {
     right: 0;
     transform: translateY(0);
     display: flex;
+    padding: 0;
 
     &-street-view {
       display: flex;
@@ -487,9 +499,11 @@ export default {
     .location {
       background: $yellow;
       height: 33vh;
+      width: calc(100% - 1rem);
 
       &-map {
         top: 0;
+        transform: translateX(.5rem);
       }
     }
 
@@ -506,10 +520,25 @@ export default {
     }
 
     .result {
-      margin-top: 42vh;
+      display: block;
+      position: fixed;
+      background: $yellow;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      overflow-y: auto;
+      padding: 1rem;
+      padding-top: 53vh;
+      margin: 0;
+      text-align: center;
 
       &-text {
         font-size: 1rem;
+      }
+
+      .next-button {
+        margin-bottom: 3rem;
       }
     }
   }
