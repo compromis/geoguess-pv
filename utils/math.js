@@ -1,4 +1,7 @@
-function calculateDistance ({ lat1, lat2, lon1, lon2 }) {
+function calculateDistance ([guess, answer]) {
+  const { lat: lat1, lng: lon1 } = guess
+  const { lat: lat2, lng: lon2 } = answer
+
   // Source: https://www.movable-type.co.uk/scripts/latlong.html
   const R = 6371e3 // metres
   const φ1 = lat1 * Math.PI / 180 // φ, λ in radians
@@ -23,8 +26,4 @@ function calculateScore (distance) {
   return score > 0 ? score : 0
 }
 
-function inKm (value) {
-  return value > 1000 ? (value / 1000).toFixed(0) + ' km' : value + ' metres'
-}
-
-export { calculateDistance, calculateScore, inKm }
+export { calculateDistance, calculateScore }
