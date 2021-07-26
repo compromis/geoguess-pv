@@ -1,28 +1,19 @@
 <template>
-  <div class="page">
-    <div class="container">
-      <Nuxt />
-    </div>
-  </div>
+  <Nuxt />
 </template>
 
 <script>
 export default {
+  mounted () {
+    this.setVh()
+    window.addEventListener('resize', this.setVh)
+  },
+
+  methods: {
+    setVh () {
+      const vh = window.innerHeight * 0.01
+      document.documentElement.style.setProperty('--vh', `${vh}px`)
+    }
+  }
 }
 </script>
-
-<style lang="scss" scoped>
-.page {
-  background: $yellow;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: $score-bar-height 1rem;
-}
-
-.container {
-  max-width: 1600px;
-  width: 100%;
-}
-</style>

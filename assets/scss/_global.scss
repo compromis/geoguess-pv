@@ -1,7 +1,25 @@
-h1, h2, h3 {
+h1 {
   text-transform: uppercase;
 }
 
-h1 {
- font-size: 6rem;
+.page {
+  background: $yellow;
+  min-height: calc(var(--vh) * 100);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: $nav-bar-height 0;
+}
+
+.container {
+  max-width: 1600px;
+  width: 100%;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .1s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
 }

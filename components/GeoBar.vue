@@ -38,7 +38,7 @@ export default {
   max-width: 320px;
   border-radius: 2rem;
   overflow: hidden;
-  margin: 1.25rem;
+  margin: 1.25rem auto;
 
   .fill {
     span {

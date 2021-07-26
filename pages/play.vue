@@ -1,12 +1,14 @@
 <template>
-  <div class="game">
-    <template v-for="round in game">
-      <guess-round
-        v-if="currentRound === round.id"
-        :key="round.id"
-        :round="round"
-      />
-    </template>
+  <div class="page">
+    <div class="container">
+      <template v-for="round in game">
+        <guess-round
+          v-if="currentRound === round.id"
+          :key="round.id"
+          :round="round"
+        />
+      </template>
+    </div>
   </div>
 </template>
 
@@ -28,5 +30,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+  .page {
+    padding: $score-bar-height 1rem 0;
+  }
 </style>
