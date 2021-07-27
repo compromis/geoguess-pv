@@ -5,7 +5,7 @@
         {{ round.id }}/{{ game.length }}
       </div>
       <div v-if="guessed" class="question">
-        {{ round.name }}
+        {{ round.answer }}
       </div>
       <div v-else class="question">
         {{ round.question }}
@@ -89,12 +89,7 @@
       <div v-else class="result-distance">
         Molt bé! T'has apropat {{ distance | inKm }}
       </div>
-      <p class="result-text">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-      </p>
+      <div class="result-text" v-html="round.text" />
       <div class="next-button">
         <geo-button v-if="round.id === game.length" to="results">
           Mostra resultats

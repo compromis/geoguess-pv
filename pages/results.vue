@@ -44,8 +44,8 @@
           <table>
             <colgroup>
               <col>
-              <col width="100">
-              <col width="100">
+              <col width="110">
+              <col width="110">
             </colgroup>
             <tbody>
               <tr v-for="(result, i) in summary" :key="i">
