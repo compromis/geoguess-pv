@@ -84,7 +84,7 @@ export default {}
       box-shadow: $box-shadow-sm;
       margin: 0;
       width: 30vw;
-      max-width: 500px;
+      max-width: 350px;
       max-height: 25vh;
       object-fit: cover;
     }
