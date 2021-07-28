@@ -31,6 +31,6 @@ export default {
 
 <style lang="scss" scoped>
   .page {
-    padding: $score-bar-height 1rem 0;
+    padding: ($score-bar-height - 1rem) 1rem 0;
   }
 </style>

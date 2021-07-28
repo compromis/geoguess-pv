@@ -1,16 +1,16 @@
 <template>
   <div class="logo">
     <transition name="fade" mode="out-in">
-      <a v-if="showLogo" href="https://compromis.net" class="compromis">
+      <a v-if="showLogo" href="https://compromis.net" class="compromis" aria-label="Compromís">
         <compromis-logo mono />
       </a>
       <nuxt-link v-else to="/" class="site-name">
         En perill de destrucció
       </nuxt-link>
     </transition>
-    <p>
+    <div class="quiz">
       <a href="https://compromis.net/campanyes">Quiz</a>
-    </p>
+    </div>
   </div>
 </template>
 
@@ -21,12 +21,15 @@ export default {
       showLogo: true
     }
   },
+
   mounted () {
     window.addEventListener('scroll', this.toggleLogo)
   },
+
   destroyed () {
     window.removeEventListener('scroll', this.toggleLogo)
   },
+
   methods: {
     toggleLogo () {
       this.showLogo = window.scrollY < 100
@@ -49,7 +52,6 @@ export default {
   right: 0;
   z-index: 100;
   height: $nav-bar-height;
-  background: $yellow;
   padding: 0 1rem;
 
   a {
@@ -68,15 +70,16 @@ export default {
     line-height: 1;
   }
 
-  p {
+  .quiz {
     margin-left: auto;
     font-size: 1.25rem;
-    margin-bottom: 0;
   }
 }
 
 @include media-breakpoint-down(md) {
   .logo {
+    background: $yellow;
+
     svg {
       height: 1.5rem;
     }

@@ -257,7 +257,7 @@ export default {
   position: relative;
   transition: .2s;
   z-index: 1000;
-  padding-bottom: 7rem;
+  padding-bottom: 6rem;
 
   &-street-view {
     display: flex;
@@ -322,7 +322,7 @@ export default {
 
 .geo-button.map-button {
   position: absolute;
-  bottom: 1.5rem;
+  bottom: .5rem;
   right: 15%;
   font-size: 1.5rem;
   padding-left: 3rem;

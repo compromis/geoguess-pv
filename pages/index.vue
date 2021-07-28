@@ -53,7 +53,7 @@ export default {}
     h1 {
       line-height: 1;
       font-size: calc(3.25rem + 3.75vw);
-      font-size: clamp(4rem, 7vw, 9rem);
+      font-size: clamp(4rem, 6.5vw, 9rem);
       margin-bottom: -2vh;
     }
 
@@ -66,7 +66,7 @@ export default {}
     }
 
     .play {
-      margin: 2rem 0 3rem;
+      margin: 1rem 0;
       font-size: $text-lg-fallback;
       font-size: $text-lg;
       width: 100%;
