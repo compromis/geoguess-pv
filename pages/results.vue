@@ -6,9 +6,27 @@
         <span class="results-headline-points">{{ score | formatNumber }}</span>
         <span class="results-headline-label">Punts</span>
       </h1>
-      <p class="results-text">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-      </p>
+      <div class="results-text">
+        <p v-if="score >= 3000">
+          Eenhorabona! Sens dubte et coneixes el territori pam a pam.
+        </p>
+
+        <p v-else-if="score >= 1000">
+          Molt bé! Encara que et queden per afinar alguns punts del mapa, pero es nota que coneixes el territori
+          i els seus punts en perill.
+        </p>
+
+        <p v-else>
+          Més sort a la propera. T’has quedat lluny d’alguns punts, però tranquil, que de segur que en no
+          res saps localitzar-los amb els ulls tancats.
+        </p>
+
+        <p>
+          Comptem amb tu per a ajudar-nos a protegir aquests espais davant l’especulació i els grans projectes
+          faraònics, i continuar apostant per polítiques sostenibles amb les quals fer front al gran
+          repte del segle XXI, l’emergència climàtica.
+        </p>
+      </div>
       <div class="cols">
         <div class="results-map">
           <gmap-map

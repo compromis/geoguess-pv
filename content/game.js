@@ -55,6 +55,33 @@ export default [
   },
   {
     id: 3,
+    label: 'Cala Mosca, Oriola',
+    question: 'On està esta cala?',
+    answer: 'Ens trobem a Cala Mosca, Oriola',
+    text: `
+      <p>
+        Ens trobem en l’última platja verge de la costa d’Oriola, la Cala Mosca,
+        en perill per una nova macrourbanització amb més de 2.000 habitatges que
+        l’alcalde imputat del PP, amb el suport de Cs, va impulsar per afavorir
+        els interessos d’una promotora.
+      </p>
+      <p>
+        I és que encara hi ha qui vol continuar construint en el poc litoral natural
+        que ens queda per tal de fer caixa, i perpetrar un model urbanístic depredador,
+        insostenible i que cap benefici econòmic o social aporta a la ciutadania. 
+      </p>
+    `,
+    position: {
+      lat: 37.940238,
+      lng: -0.7124598
+    },
+    pov: {
+      heading: 45,
+      pitch: 0
+    }
+  },
+  {
+    id: 4,
     label: 'Albufera',
     question: 'On està aquesta barca?',
     answer: 'Estem al Parc Natural de l’Albufera',
@@ -77,7 +104,7 @@ export default [
     }
   },
   {
-    id: 4,
+    id: 5,
     label: 'Ares del Maestrat',
     question: 'On estem?',
     answer: 'Estem a la CV15 al terme municipal de Ares del Maestrat',
@@ -104,7 +131,7 @@ export default [
     }
   },
   {
-    id: 5,
+    id: 6,
     label: 'Xiva',
     question: 'On estem?',
     answer: 'Estem en el terme municipal de Xiva',
@@ -128,7 +155,7 @@ export default [
     }
   },
   {
-    id: 6,
+    id: 7,
     label: 'Bellreguard',
     question: 'On estem?',
     answer: 'Ens trobem a Bellreguard',
@@ -155,7 +182,7 @@ export default [
     }
   },
   {
-    id: 7,
+    id: 8,
     label: 'Altea (N332)',
     question: 'On estem?',
     answer: 'Ens trobem a la N-332, a l\'altura d\'Altea',
