@@ -3,13 +3,13 @@ export default [
     id: 1,
     label: 'Palma de Gandia (CV 60)',
     question: 'On ens trobem?',
-    answer: 'Estem als camps de tarongers de Palma de Gandia (CV 60) ',
+    answer: 'Estem a l\'horta de Palma de Gandia',
     text: `
       <p>
-        Ens trobem a Palma de Gandia, on moltes hectàrees de la seua horta productiva estan en perill de desaparéixer
-        per culpa del projecte d'ampliació de la carretera CV-60. Una construcció de més de 65 milions d'euros que destrossa
-        terra fèrtil per a afavorir quatre grans carrils per al cotxe privat mentre es continua abandonat el servei de
-        ferrocarril.
+        Ens trobem a <strong>Palma de Gandia</strong>, on moltes hectàrees de la seua horta productiva
+        estan en perill de desaparéixer per culpa del <strong>projecte d'ampliació de la carretera CV‑60</strong>.
+        Una construcció de més de 65 milions d'euros que destrossa terra fèrtil per a afavorir quatre grans carrils
+        per al cotxe privat mentre es continua abandonat el servei de ferrocarril.
       </p>
       <p>
         Una estúpida obra en plena emergència climàtica que es podria substituir per una alternativa de
@@ -32,13 +32,16 @@ export default [
     answer: 'Estem al municipi de Pedralba',
     text: `
       <p>
-        Ens trobem al municipi de Pedralba, localitat que necessita amb urgencia crear
+        Ens trobem al municipi de <strong>Pedralba</strong>, localitat que necessita amb urgencia crear
         una nova via alternativa perquè la carretera nacional deixe de passar pel mig del poble.
       </p>
       <p>
         Però, mentre des de Compromís defensem crear un traçat alternatiu pel nord per tal de protegir
-        el Parc Natural del Túria, que passa pel sud del municipi, PP i PSOE no tenen problemes en
-        destrossar aquest espai natural i defensar la variant sud d'aquesta carretera.
+        el <strong>Parc Natural del Túria</strong>, que passa pel sud del municipi, PP i PSOE no
+        tenen problemes en destrossar aquest espai natural i defensar la variant sud d'aquesta carretera.
+      </p>
+      <p>
+        <img src="/images/playeta-pedralba.jpg" alt="Parc Natural del Túria" />
       </p>
       <p>
         Però després parlem d'emergència climàtica i sostenibilitat. Tot molt <em>greenwashing</em>.
@@ -57,13 +60,16 @@ export default [
     id: 3,
     label: 'Cala Mosca, Oriola',
     question: 'On està esta cala?',
-    answer: 'Ens trobem a Cala Mosca, Oriola',
+    answer: 'Ens trobem a la Cala Mosca, Oriola',
     text: `
       <p>
-        Ens trobem en l’última platja verge de la costa d’Oriola, la Cala Mosca,
-        en perill per una nova macrourbanització amb més de 2.000 habitatges que
+        Ens trobem en l’última platja verge de la costa d’Oriola, la <strong>Cala Mosca</strong>,
+        en perill per una nova <strong>macrourbanització amb més de 2.000 habitatges</strong> que
         l’alcalde imputat del PP, amb el suport de Cs, va impulsar per afavorir
         els interessos d’una promotora.
+      </p>
+      <p>
+        <img src="/images/cala-mosca.jpg" alt="Terreny on anirien els 2.000 habitatges" />
       </p>
       <p>
         I és que encara hi ha qui vol continuar construint en el poc litoral natural
@@ -87,11 +93,12 @@ export default [
     answer: 'Estem al Parc Natural de l’Albufera',
     text: `
       <p>
-        Ens trobem al Parc Natural de l'Albufera, en greu perill per culpa de la regressió de les
-        platges del sud de València per culpa de l'ampliació del Port, una obra innecessària i
-        insostenible que provocarà la salinització de la llacuna, la desaparició d’un dels pulmons de
-        València i l'augment sense precedent de la contaminació en la ciutat. Tot un desastre ambiental,
-        social i econòmic basat en un model de creixement caduc que només interessa els especuladors.
+        Ens trobem al <strong>Parc Natural de l'Albufera</strong>, en greu perill per culpa de la regressió de les
+        platges del sud de València <strong>per culpa de l'ampliació del Port</strong>, una obra innecessària i
+        insostenible que provocarà la salinització de la llacuna, i per tant, la mort de tot l’ecosistema,
+        a més de fer  desapareixer un dels pulmons de València i l'augment sense precedent de la contaminació
+        en la ciutat. Tot un desastre ambiental, social i econòmic basat en un model de creixement caduc que
+        només interessa els especuladors.
       </p>
     `,
     position: {
@@ -110,9 +117,12 @@ export default [
     answer: 'Estem a la CV15 al terme municipal de Ares del Maestrat',
     text: `
       <p>
-        Ens trobem prop del terme municipal d’Ares del Maestrat, paratge natural que podria estar
-        afectat per grans torres elèctriques per la nova línia de Molt Alta Tensió (MAT) que el
+        Ens trobem prop del terme municipal d’<strong>Ares del Maestrat</strong>, paratge natural que podria estar
+        afectat per grans torres elèctriques per la <strong>nova línia de Molt Alta Tensió (MAT)</strong> que el
         govern central vol instal·lar entre Almassora i Morella. 
+      </p>
+      <p>
+        <img src="/images/alta-tensio.jpg" alt="Línies d'alta tensió" />
       </p>
       <p>
         Una línea que pot ser molt perjudicial per a la salut dels veïns i veïnes dels pobles afectats
@@ -132,12 +142,12 @@ export default [
   },
   {
     id: 6,
-    label: 'Xiva',
+    label: 'Brihuela',
     question: 'On estem?',
-    answer: 'Estem en el terme municipal de Xiva',
+    answer: 'Estem al paratge natural de Brihuela',
     text: `
       <p>
-        Ens trobem en el paratge natural de Brihuela, en el municipi de Xiva,
+        Ens trobem en el <strong>paratge natural de Brihuela</strong>, en el municipi de Xiva,
         un espai d'oliveres i garroferes centenàries amb una gran tradició agrària
         que corre el risc de desaparèixer per culpa de la instal·lació d'una macro planta solar.
         Un projecte amb un gran impacte paisatgístic i mediambiental que pot instal·lar-se
@@ -156,14 +166,17 @@ export default [
   },
   {
     id: 7,
-    label: 'Bellreguard',
+    label: 'Platja de Bellreguard',
     question: 'On estem?',
     answer: 'Ens trobem a Bellreguard',
     text: `
       <p>
-        Ens trobem a la platja de Bellreguard, una de les zones afectades per la regressió
-        de les platges a causa de l'emergència climàtica i els efectes del port de Gandia
+        Ens trobem a la <strong>platja de Bellreguard</strong>, una de les zones afectades per la regressió
+        de les platges a causa de l'emergència climàtica i els <strong>efectes del port de Gandia</strong>
         sobre les platges del sud de la Safor que uns pocs anys s’han reduït a la meitat.
+      </p>
+      <p>
+        <img src="/images/platja-bellreguard.jpg" alt="Platja de Bellreguard destroçada pel temporal" />
       </p>
       <p>
         Des de Compromís hem reclamat al Ministeri de Transició Ecològica, en primer lloc,
@@ -188,16 +201,22 @@ export default [
     answer: 'Ens trobem a la N-332, a l\'altura d\'Altea',
     text: `
       <p>
-        Ens trobem a la N-332 a l’altura del municipi d’Altea, únic accés per accedir al
-        municipi que cada estiu es plena de milers i milers de persones que davant la manca
-        d’un servei de ferrocarril digne, ha d’utilitzar el seu cotxe privat per poder
-        arribar al municipi, provocant contaminació i molts problemes per als veïns i
-        veïnes de la localitat.
+        Ens trobem a la N-332 a l’altura del municipi d’<strong>Altea</strong>, únic accés
+        per accedir al municipi que cada estiu es plena de milers i milers de persones
+        que davant la manca d’un servei de ferrocarril digne, ha d’utilitzar el seu cotxe
+        privat per poder arribar al municipi, provocant contaminació i molts problemes
+        per als veïns i veïnes de la localitat.
       </p>
       <p>
-        És per això, que reclamem amb urgència un servei ferroviari eficient entre Gandia
-        i Alacant que passe pels municipis costers vertebrant el territori i ajudant
-        en la lluita contra l’emergència climàtica.
+        És per això, que reclamem amb urgència un <strong>servei ferroviari eficient que connecte
+        les linies existents entre Gandia i Alacant</strong> i que passe pels municipis costers vertebrant
+        el territori i ajudant en la lluita contra l’emergència climàtica.
+      </p>
+      <p>
+          <img src="/images/mapa-rodalies.png" style="max-width: 375px;" alt="Proposta de rodalies de Compromís amb una nova línia que conecta Gandia amb Alacant, passant per Altea" />
+      </p>
+      <p>
+        Proposta de mapa de rodalies de Compromís. Per a més informació consulta la nostra campanya <a href="https://trencancelado.com" target="_blank">On **** està el meu tren?</a>
       </p>
     `,
     position: {

@@ -4,7 +4,7 @@
     <div class="results">
       <h1 class="results-headline">
         <span class="results-headline-points">{{ score | formatNumber }}</span>
-        <span class="results-headline-label">Punts</span>
+        <span class="results-headline-label">de 4.000 punts</span>
       </h1>
       <div class="results-text">
         <p v-if="score >= 3000">
@@ -22,7 +22,7 @@
         </p>
 
         <p>
-          Comptem amb tu per a ajudar-nos a protegir aquests espais davant l’especulació i els grans projectes
+          <a href="https://sumat.compromis.net/?ref=geoguesspv" title="Suma't a Compromís">Comptem amb tu</a> per a ajudar-nos a protegir aquests espais davant l’especulació i els grans projectes
           faraònics, i continuar apostant per polítiques sostenibles amb les quals fer front al gran
           repte del segle XXI, l’emergència climàtica.
         </p>
@@ -32,7 +32,7 @@
           <gmap-map
             ref="map"
             class="results-map-canvas"
-            :zoom="8"
+            :zoom="7.75"
             :center="pvPosition"
             :options="{
               zoomControl: true,
@@ -95,7 +95,7 @@
         <h2>Comparteix la teua puntuació<br>i repta a les teues amistats</h2>
         <ul>
           <li>
-            <geo-button variant="twitter" :href="`https://twitter.com/intent/tweet/?text=${shareable.text}&url=${shareable.url}&hashtags=${shareable.hashtag}`" target="_blank">
+            <geo-button variant="twitter" :href="`https://twitter.com/intent/tweet/?text=${shareable.tweet}&url=${shareable.url}`" target="_blank">
               <icons-twitter /> Twitter
             </geo-button>
           </li>
@@ -193,12 +193,13 @@ export default {
     },
 
     shareable () {
-      const text = `He tret ${this.score} punts al mapa-quiz En Perill de Destrucció de Compromís. Pots superar-ho?`
+      const text = `He tret ${this.score} punts al joc "En Perill de Destrucció" de Compromís. Pots superar-ho?`
+      const tweet = `He tret ${this.score} punts al joc #EnPerillDeDestrucció de @compromís. Pots superar-ho?`
 
       return {
         url: encodeURIComponent(url),
         text: encodeURIComponent(text),
-        hashtag: 'EnPerillDeDestrucció'
+        tweet: encodeURIComponent(tweet)
       }
     }
   }
@@ -227,9 +228,8 @@ export default {
       &-label {
         display: block;
         font-family: $font-family-sans-serif;
-        text-transform: capitalize;
-        font-size: $text-base-fallback;
-        font-size: $text-base;
+        text-transform: initial;
+        font-size: 1.5rem;
       }
     }
 

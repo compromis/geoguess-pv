@@ -346,6 +346,9 @@ export default {
 }
 
 .guessed {
+  transition: .25s ease;
+  padding-top: .5rem;
+
   .location {
     transform: translateY(0);
 
@@ -401,13 +404,24 @@ export default {
     font-size: $text-lg;
     text-align: center;
     line-height: 1.1;
+    margin: 2rem 0;
   }
 
   &-text {
-    margin: 1rem 0;
+    margin: 0;
     font-size: 1.25rem;
     text-align: center;
     max-width: 800px;
+
+    &::v-deep img {
+      display: block;
+      width: 80%;
+      max-width: 500px;
+      border: 10px $white solid;
+      box-shadow: $box-shadow;
+      transform: rotate(-1.5deg);
+      margin: 2rem auto;
+    }
   }
 }
 
@@ -491,6 +505,8 @@ export default {
   }
 
   .guessed {
+    padding-top: 0;
+
     .location {
       background: $yellow;
       height: 33vh;
