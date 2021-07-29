@@ -22,7 +22,9 @@
           Sabries indicar en el mapa on es troben aquests punts del nostre territori?
         </p>
         <p>
-          Una pista: tots es troben en risc per culpa de l'especulació i les obres faraòniques depredadores i innecessàries.
+          Una pista: tots es troben en risc per culpa de l'especulació, les obres faraòniques
+          i innecessàries o per la negativa del govern central a donar solucions sostenibles
+          i respectuoses amb l’entorn.
         </p>
         <geo-button to="/play" class="play">
           Juga ->

@@ -8,7 +8,7 @@
       </h1>
       <div class="results-text">
         <p v-if="score >= 3000">
-          Eenhorabona! Sens dubte et coneixes el territori pam a pam.
+          Enhorabona! Sens dubte et coneixes el territori pam a pam.
         </p>
 
         <p v-else-if="score >= 1000">
