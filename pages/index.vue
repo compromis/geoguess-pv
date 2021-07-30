@@ -30,7 +30,7 @@ ca:
   headline: "En perill<br>de destrucció"
   text1: "Sabries indicar en el mapa on es troben aquests punts del nostre territori?"
   text2: >
-    Una pista: tots es troben en risc per culpa de l'especulació, les obres faraòniques
+    Una pista: tots estan en risc per culpa de l'especulació, les obres faraòniques
     i innecessàries o per la negativa del govern central a donar solucions sostenibles
     i respectuoses amb l’entorn.
   play: "Juga ->"
@@ -39,7 +39,7 @@ es:
   headline: "En peligro<br>de destrucción"
   text1: "¿Sabrías indicar en el mapa dónde se encuentran estos puntos de nuestro territorio?"
   text2: >
-    Una pista: todos se encuentran en riesgo por culpa de la especulación, las obras faraónicas
+    Una pista: todos están en riesgo por culpa de la especulación, las obras faraónicas
     e innecesarias o por la negativa del gobierno central a dar soluciones sostenibles
     y respetuosas con el entorno.
   play: "Jugar ->"

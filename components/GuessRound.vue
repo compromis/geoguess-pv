@@ -95,7 +95,7 @@
         <span v-t="'points'" class="result-score-label" />
       </div>
       <geo-bar :score="roundScore" />
-      <div v-if="distance > 1000" class="result-distance">
+      <div v-if="distance > 5000" class="result-distance">
         {{ $t('failedby') }} {{ distance | inKm }}
       </div>
       <div v-else class="result-distance">
@@ -211,8 +211,7 @@ export default {
 
       // Record result and add points
       this.guessed = true
-      this.$store.commit('addPoints', this.roundScore)
-      this.$store.commit('recordResult', {
+      this.$store.dispatch('save', {
         round: this.round,
         guess: this.currentGuess,
         distance: this.distance,
