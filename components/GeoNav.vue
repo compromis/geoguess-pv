@@ -4,15 +4,25 @@
       <a v-if="showLogo" href="https://compromis.net" class="compromis" aria-label="Compromís">
         <compromis-logo mono />
       </a>
-      <nuxt-link v-else to="/" class="site-name">
-        En perill de destrucció
-      </nuxt-link>
+      <nuxt-link v-else v-t="'title'" :to="localePath('/')" class="site-name" />
     </transition>
     <div class="quiz">
-      <a href="https://compromis.net/campanyes">Quiz</a>
+      <nuxt-link v-if="$i18n.locale === 'ca'" :to="switchLocalePath('es')">
+        Castellano
+      </nuxt-link>
+      <nuxt-link v-else :to="switchLocalePath('ca')">
+        Valencià
+      </nuxt-link>
     </div>
   </div>
 </template>
+
+<i18n lang="yaml">
+ca:
+  title: "En perill de destrucció"
+es:
+  title: "En peligro de destrucción"
+</i18n>
 
 <script>
 export default {

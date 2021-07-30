@@ -12,6 +12,23 @@
   </div>
 </template>
 
+<i18n lang="yaml">
+ca:
+  title: "Joc: En perill de destrucció - Compromís"
+es:
+  title: "Juego: En peligro de destrucción - Compromís"
+</i18n>
+
+<script>
+export default {
+  head () {
+    return {
+      title: this.$t('title')
+    }
+  }
+}
+</script>
+
 <script>
 export default {
   computed: {

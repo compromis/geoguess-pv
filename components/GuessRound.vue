@@ -5,10 +5,10 @@
         {{ round.id }}/{{ game.length }}
       </div>
       <div v-if="guessed" class="question">
-        {{ round.answer }}
+        {{ round[locale].answer }}
       </div>
       <div v-else class="question">
-        {{ round.question }}
+        {{ round[locale].question }}
       </div>
       <div class="score">
         <span class="score-points">{{ score }}</span>
@@ -26,7 +26,7 @@
         />
       </div>
       <div :class="['location-map', { 'location-map-show': showMap }]">
-        <button class="close-map-button" aria-label="Tanca mapa" @click="showMap = false">
+        <button class="close-map-button" :aria-label="$t('closemap')" @click="showMap = false">
           &times;
         </button>
         <gmap-map
@@ -60,47 +60,78 @@
             :path="path"
           />
         </gmap-map>
-        <geo-button v-if="!guessed && markers.length" class="guess-button map-button button-hide" @click="guess">
-          Crec que és ací ->
-        </geo-button>
-        <geo-button v-else-if="!guessed" variant="disabled" class="guess-button map-button button-hide">
-          Tria un punt al mapa
-        </geo-button>
+        <geo-button
+          v-if="!guessed && markers.length"
+          v-t="'makeguess'"
+          class="guess-button map-button button-hide"
+          @click="guess"
+        />
+        <geo-button
+          v-else-if="!guessed"
+          v-t="'mapinstruction'"
+          variant="disabled"
+          class="guess-button map-button button-hide"
+        />
       </div>
     </div>
     <div v-if="!guessed" class="button-container">
-      <geo-button :variant="markers.length ? 'primary' : 'disabled'" :class="['guess-button', { 'button-hide': !showMap }]" @click="guess">
-        {{ markers.length ? 'Crec que és ací ->' : 'Tria un punt al mapa' }}
-      </geo-button>
+      <geo-button
+        v-t="markers.length ? 'makeguess' : 'mapinstruction'"
+        :variant="markers.length ? 'primary' : 'disabled'"
+        :class="[
+          'guess-button',
+          { 'button-hide': !showMap }
+        ]"
+        @click="guess"
+      />
       <geo-button :class="['show-map-button', { 'button-hide': showMap }]" @click="showMap = !showMap">
         <icons-map />
-        Endevina-ho
+        {{ $t('showmap') }}
       </geo-button>
     </div>
     <div v-else class="result">
       <div class="result-score">
         <span class="result-score-points">+ {{ roundScore }}</span>
-        <span class="result-score-label">Punts</span>
+        <span v-t="'points'" class="result-score-label" />
       </div>
       <geo-bar :score="roundScore" />
       <div v-if="distance > 1000" class="result-distance">
-        Has fallat per {{ distance | inKm }}
+        {{ $t('failedby') }} {{ distance | inKm }}
       </div>
       <div v-else class="result-distance">
-        Molt bé! T'has apropat {{ distance | inKm }}
+        {{ $t('succeededby') }} {{ distance | inKm }}
       </div>
-      <div class="result-text" v-html="round.text" />
+      <div class="result-text" v-html="round[locale].text" />
       <div class="next-button">
-        <geo-button v-if="round.id === game.length" to="results">
-          Mostra resultats
-        </geo-button>
-        <geo-button v-else @click="nextRound">
-          Següent ronda ->
-        </geo-button>
+        <geo-button v-if="round.id === game.length" v-t="'showresults'" :to="localePath('results')" />
+        <geo-button v-else v-t="'nextround'" @click="nextRound" />
       </div>
     </div>
   </div>
 </template>
+
+<i18n lang="yaml">
+ca:
+  closemap: "Tanca mapa"
+  makeguess: "Crec que és ací ->"
+  mapinstruction: "Tria un punt al mapa"
+  showmap: "Endevina-ho"
+  points: "Punts"
+  failedby: "Has fallat per"
+  succeededby: "Molt bé! T'has apropat"
+  showresults: "Mostra resultats"
+  nextround: "Següent ronda ->"
+es:
+  closemap: "Cerrar mapa"
+  makeguess: "Creo que es aquí ->"
+  mapinstruction: "Elige un punto en el mapa"
+  showmap: "Adivinar"
+  points: "Puntos"
+  failedby: "Has fallado por"
+  succeededby: "¡Muy bien! Te has acercado"
+  showresults: "Mostrar resultados"
+  nextround: "Siguiente ronda ->"
+</i18n>
 
 <script>
 import { calculateDistance, calculateScore } from '../utils/math'
@@ -144,6 +175,10 @@ export default {
 
     game () {
       return this.$store.state.game
+    },
+
+    locale () {
+      return this.$i18n.locale
     }
   },
 
@@ -248,6 +283,10 @@ export default {
     &-points {
       font-family: $headings-font-family;
       font-size: 2.5rem;
+    }
+
+    &-label {
+      white-space: nowrap;
     }
   }
 }

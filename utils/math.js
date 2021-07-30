@@ -21,7 +21,7 @@ function calculateDistance ([guess, answer]) {
 function calculateScore (distance) {
   const maxScore = 500
   const minScore = 0
-  const maxDistance = 50000
+  const maxDistance = 75000
   const score = Math.round(maxScore + (distance - 1) * ((minScore - maxScore) / (maxDistance - 1)))
   return score > 0 ? score : 0
 }

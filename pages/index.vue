@@ -3,9 +3,7 @@
     <geo-nav />
     <div class="home">
       <div class="container">
-        <h1>
-          En perill<br>de destrucció
-        </h1>
+        <h1 v-html="$t('headline')" />
       </div>
       <div class="images" aria-hidden="true">
         <img class="image-1" src="~/assets/images/1.jpg" alt="">
@@ -18,24 +16,43 @@
         <img class="image-8" src="~/assets/images/2.jpg" alt="">
       </div>
       <div class="container">
-        <p>
-          Sabries indicar en el mapa on es troben aquests punts del nostre territori?
-        </p>
-        <p>
-          Una pista: tots es troben en risc per culpa de l'especulació, les obres faraòniques
-          i innecessàries o per la negativa del govern central a donar solucions sostenibles
-          i respectuoses amb l’entorn.
-        </p>
-        <geo-button to="/play" class="play">
-          Juga ->
-        </geo-button>
+        <p v-t="'text1'" />
+        <p v-t="'text2'" />
+        <geo-button v-t="'play'" :to="localePath('play')" class="play" />
       </div>
     </div>
   </div>
 </template>
 
+<i18n lang="yaml">
+ca:
+  title: "Joc: En perill de destrucció - Compromís"
+  headline: "En perill<br>de destrucció"
+  text1: "Sabries indicar en el mapa on es troben aquests punts del nostre territori?"
+  text2: >
+    Una pista: tots es troben en risc per culpa de l'especulació, les obres faraòniques
+    i innecessàries o per la negativa del govern central a donar solucions sostenibles
+    i respectuoses amb l’entorn.
+  play: "Juga ->"
+es:
+  title: "Juego: En peligro de destrucción - Compromís"
+  headline: "En peligro<br>de destrucción"
+  text1: "¿Sabrías indicar en el mapa dónde se encuentran estos puntos de nuestro territorio?"
+  text2: >
+    Una pista: todos se encuentran en riesgo por culpa de la especulación, las obras faraónicas
+    e innecesarias o por la negativa del gobierno central a dar soluciones sostenibles
+    y respetuosas con el entorno.
+  play: "Jugar ->"
+</i18n>
+
 <script>
-export default {}
+export default {
+  head () {
+    return {
+      title: this.$t('title')
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -50,7 +67,7 @@ export default {}
     width: 100%;
     text-align: center;
     overflow-x: hidden;
-    margin-bottom: -3rem;
+    margin-bottom: -5rem;
 
     h1 {
       line-height: 1;
@@ -68,7 +85,7 @@ export default {}
     }
 
     .play {
-      margin: 1rem 0;
+      margin: 1rem 0 3rem;
       font-size: $text-lg-fallback;
       font-size: $text-lg;
       width: 100%;

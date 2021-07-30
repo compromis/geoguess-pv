@@ -23,13 +23,13 @@ export default {
       { hid: 'og:locale', property: 'og:locale', content: 'ca' },
       { hid: 'og:type', property: 'og:type', content: 'website' },
       { hid: 'og:description', property: 'og:description', content: description },
-      { hid: 'og:image', property: 'og:image', content: url + '/ogimage.png' },
+      { hid: 'og:image', property: 'og:image', content: url + 'ogimage.png' },
       { hid: 'og:url', property: 'og:url', content: url },
       { hid: 'twitter:site', property: 'twitter:site', content: '@compromis' },
       { hid: 'twitter:card', property: 'twitter:card', content: 'summary_large_image' },
       { hid: 'twitter:title', property: 'twitter:title', content: title },
       { hid: 'twitter:description', property: 'twitter:description', content: description },
-      { hid: 'twitter:image', property: 'twitter:image', content: url + '/ogimage.png' },
+      { hid: 'twitter:image', property: 'twitter:image', content: url + 'ogimage.png' },
       { hid: 'twitter:url', property: 'twitter:url', content: url }
     ],
     link: [
@@ -62,6 +62,7 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
+    'nuxt-i18n'
   ],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
@@ -72,5 +73,11 @@ export default {
     scss: [
       './assets/scss/_variables.scss'
     ]
+  },
+
+  i18n: {
+    locales: ['ca', 'es'],
+    defaultLocale: 'ca',
+    vueI18nLoader: true
   }
 }

@@ -1,4 +1,4 @@
-import game from '../content/game.js'
+import game from '../content/game'
 
 export const state = () => ({
   game,

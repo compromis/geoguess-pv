@@ -4,28 +4,13 @@
     <div class="results">
       <h1 class="results-headline">
         <span class="results-headline-points">{{ score | formatNumber }}</span>
-        <span class="results-headline-label">de 4.000 punts</span>
+        <span v-t="'outofpoints'" class="results-headline-label" />
       </h1>
       <div class="results-text">
-        <p v-if="score >= 3000">
-          Enhorabona! Sens dubte et coneixes el territori pam a pam.
-        </p>
-
-        <p v-else-if="score >= 1000">
-          Molt bé! Encara que et queden per afinar alguns punts del mapa, pero es nota que coneixes el territori
-          i els seus punts en perill.
-        </p>
-
-        <p v-else>
-          Més sort a la propera. T’has quedat lluny d’alguns punts, però tranquil, que de segur que en no
-          res saps localitzar-los amb els ulls tancats.
-        </p>
-
-        <p>
-          <a href="https://sumat.compromis.net/?ref=geoguesspv" title="Suma't a Compromís">Comptem amb tu</a> per a ajudar-nos a protegir aquests espais davant l’especulació i els grans projectes
-          faraònics, i continuar apostant per polítiques sostenibles amb les quals fer front al gran
-          repte del segle XXI, l’emergència climàtica.
-        </p>
+        <p v-if="score >= 3000" v-t="'exceptional'" />
+        <p v-else-if="score >= 1000" v-t="'middleofroad'" />
+        <p v-else v-t="'shamefuldisplay'" />
+        <p v-html="$t('common')" />
       </div>
       <div class="cols">
         <div class="results-map">
@@ -68,7 +53,7 @@
             <tbody>
               <tr v-for="(result, i) in summary" :key="i">
                 <th>
-                  {{ result.round.label }}
+                  {{ result.round[$i18n.locale].label }}
                 </th>
                 <td class="results-summary-distance">
                   {{ result.distance | inKm }}
@@ -92,7 +77,7 @@
         </div>
       </div>
       <div class="results-share">
-        <h2>Comparteix la teua puntuació<br>i repta a les teues amistats</h2>
+        <h2 v-html="$t('share')" />
         <ul>
           <li>
             <geo-button variant="twitter" :href="`https://twitter.com/intent/tweet/?text=${shareable.tweet}&url=${shareable.url}`" target="_blank">
@@ -100,28 +85,69 @@
             </geo-button>
           </li>
           <li>
-            <geo-button variant="facebook" :href="`https://www.facebook.com/sharer/sharer.php?u=${shareable.url}`" target="_blank">
+            <geo-button variant="facebook" :href="`https://www.facebook.com/sharer/sharer.php?u=${shareable.url}&quote=${shareable.text}`" target="_blank">
               <icons-facebook /> Facebook
             </geo-button>
           </li>
           <li>
             <geo-button variant="whatsapp" :href="`whatsapp://send?text=${shareable.text} ${shareable.url}`" target="_blank">
-              <icons-whatsapp />Whatsapp
+              <icons-whatsapp /> Whatsapp
             </geo-button>
           </li>
           <li>
             <geo-button variant="telegram" :href="`https://t.me/share/url?url=${shareable.url}&text=${shareable.text}`" target="_blank">
-              <icons-telegram />Telegram
+              <icons-telegram /> Telegram
             </geo-button>
           </li>
         </ul>
       </div>
-      <geo-button to="play" variant="yellow" class="replay">
-        <icons-replay /> Torna a jugar
+      <geo-button :to="localePath('play')" variant="yellow" class="replay">
+        <icons-replay /> {{ $t('replay') }}
       </geo-button>
     </div>
   </div>
 </template>
+
+<i18n lang="yaml">
+ca:
+  title: "Resultats - En perill de destrucció - Compromís"
+  outofpoints: "de 4.000 punts"
+  exceptional: "Enhorabona! Sens dubte et coneixes el territori pam a pam."
+  middleofroad: >
+    Molt bé! Encara que et queden per afinar alguns punts del mapa,
+    pero es nota que coneixes el territori i els seus punts en perill.
+  shamefuldisplay: >
+    Més sort a la propera. T’has quedat lluny d’alguns punts, però tranquil,
+    que de segur que en no res saps localitzar-los amb els ulls tancats.
+  common: >
+    <a href="https://sumat.compromis.net/?ref=geoguesspv" title="Suma't a Compromís">Comptem amb tu</a>
+    per a ajudar-nos a protegir aquests espais davant l’especulació i els grans projectes
+    faraònics, i continuar apostant per polítiques sostenibles amb les quals fer front al gran
+    repte del segle XXI, l’emergència climàtica.
+  share: "Comparteix la teua puntuació<br>i repta a les teues amistats"
+  replay: "Torna a jugar"
+  shareabletext: "🙌 He tret {score} punts al joc 🗺️ \"En Perill de Destrucció\" de Compromís. Pots superar-ho?"
+  shareabletweet: "🙌 He tret {score} punts al joc 🗺️ #EnPerillDeDestrucció de @compromis. Pots superar-ho?"
+es:
+  title: "Resultados - En peligro de destrucción - Compromís"
+  outofpoints: "de 4.000 puntos"
+  exceptional: "¡Enhorabuena! Sin duda te conocer el territorio palmo a palmo."
+  middleofroad: >
+    ¡Muy bien! Aunque te quedan por afinar algunos puntos del mapa, se nota que conoces
+    el territorio y sus puntos en peligro.
+  shamefuldisplay: >
+    Más suerte la próxima. Te has quedado lejos de algunos puntos,
+    pero tranquilidad, que seguro que en nada sabes localizarlos con los ojos cerrados.
+  common: >
+    <a href="https://sumat.compromis.net/cas?ref=geoguesspv" title="Súmate a Compromís">Contamos contigo</a>
+    para ayudarnos a proteger estos espacios ante la especulación y los grandes proyectos faraónicos,
+    y seguir apostando por políticas sostenibles con las que hacer frente al gran reto del siglo XXI,
+    la emergencia climática.
+  share: "Comparte tu puntuación<br>y reta a tus amistades"
+  replay: "Volver a jugar"
+  shareabletext: "🙌 He sacado {score} puntos en el juego 🗺️ \"En Peligro de Destrucción\" de Compromís. ¿Puedes superarlo?"
+  shareabletweet: "🙌 He sacado {score} puntos en el juego 🗺️ #EnPeligroDeDestrucción de @compromis. ¿Puedes superarlo?"
+</i18n>
 
 <script>
 import { url } from '../content/meta'
@@ -149,7 +175,7 @@ export default {
 
   head () {
     return {
-      title: 'Resultats - En perill de destrucció - Quiz - Compromís'
+      title: this.$t('title')
     }
   },
 
@@ -193,13 +219,11 @@ export default {
     },
 
     shareable () {
-      const text = `He tret ${this.score} punts al joc "En Perill de Destrucció" de Compromís. Pots superar-ho?`
-      const tweet = `He tret ${this.score} punts al joc #EnPerillDeDestrucció de @compromís. Pots superar-ho?`
-
+      const { score } = this
       return {
         url: encodeURIComponent(url),
-        text: encodeURIComponent(text),
-        tweet: encodeURIComponent(tweet)
+        text: encodeURIComponent(this.$t('shareabletext', { score })),
+        tweet: encodeURIComponent(this.$t('shareabletweet', { score }))
       }
     }
   }
