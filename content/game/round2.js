@@ -10,9 +10,9 @@ export default {
         una nova via alternativa perquè la carretera nacional deixe de passar pel mig del poble.
       </p>
       <p>
-        Però, mentre des de Compromís defensem crear un traçat alternatiu pel nord per tal de protegir
-        el <strong>Parc Natural del Túria</strong>, que passa pel sud del municipi, PP i PSOE no
-        tenen problemes en destrossar aquest espai natural i defensar la variant sud d'aquesta carretera.
+        Però, mentre des de Compromís defensem crear un traçat alternatiu per tal de protegir
+        el <strong>Parc Natural del Túria</strong>, PP i PSOE no tenen problemes en destrossar aquest
+        espai natural i defensar la variant sud d'aquesta carretera.
       </p>
       <p>
         <img src="/images/playeta-pedralba.jpg" alt="Parc Natural del Túria" />
@@ -32,9 +32,9 @@ export default {
         crear una nueva vía alternativa para que la carretera nacional deje de pasar por el medio de la localidad.
       </p>
       <p>
-        Pero, mientras desde Compromís defendemos crear un trazado alternativo por el norte con el fin de proteger
-        el <strong>Parque Natural del Turia</strong>, que pasa por el sur del municipio, PP y PSOE no
-        tienen problemas en destrozar este espacio natural y defender la variante sur de esta carretera.
+        Pero, mientras desde Compromís defendemos crear un trazado alternativo con el fin de proteger
+        el <strong>Parque Natural del Turia</strong>, PP y PSOE no tienen problemas en destrozar este
+        espacio natural y defender la variante sur de esta carretera.
       </p>
       <p>
         <img src="/images/playeta-pedralba.jpg" alt="Parque Natural del Túria" />

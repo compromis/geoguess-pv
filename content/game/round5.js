@@ -14,10 +14,10 @@ export default {
         <img src="/images/alta-tensio.jpg" alt="Línies d'alta tensió" />
       </p>
       <p>
-        Una línea que pot ser molt perjudicial per a la salut dels veïns i veïnes dels pobles afectats
-        i que suposa un atemptat al paisatge i les espècies que hi habiten. Per això, des de Compromís
-        hem reclamat la paralització del projecte fins que es puga conèixer totes les repercussions que
-        tindrà.
+        Una línia que afectarà el paisatge i les espècies que l'habiten.
+        Per això, des de Compromís hem reclamat la paralització del projecte
+        fins que es puga conèixer totes les repercussions que tindrà per al
+        medi ambient i els seus veïns i veïnes.
       </p>
     `
   },
@@ -35,10 +35,10 @@ export default {
         <img src="/images/alta-tensio.jpg" alt="Líneas de alta tensión" />
       </p>
       <p>
-        Una línea que puede ser muy perjudicial para la salud de los vecinos y vecinas de los pueblos afectados
-        y que supone un atentado al paisaje y las especies que lo habitan. Por eso, desde Compromís
-        hemos reclamado la paralización del proyecto hasta que se pueda conocer todas las repercusiones
-        que tendrá.
+        Una línea que afectará al paisaje y las especies que lo habitan.
+        Por eso, desde Compromís hemos reclamado la paralización del proyecto hasta
+        que se pueda conocer todas las repercusiones que tendrá para el medio ambiente
+        y sus vecinos y vecinas.
       </p>
     `
   },
